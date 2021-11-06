@@ -18,7 +18,8 @@
     "declaration": true, // Generate corresponding .d.ts file
     "incremental": true, // Enable incremental compilation by reading/writing information from prior compilations to a file on disk
     "noFallthroughCasesInSwitch": true, // Report errors for fallthrough cases in switch statement
-    "plugins": [{ "name": "typescript-plugin-css-modules" }]
+    "plugins": [{ "name": "typescript-plugin-css-modules" }],
+    "baseUrl": "src"
   },
   "include": [
     "src/**/*" // *** The files TypeScript should type check ***

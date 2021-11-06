@@ -3,10 +3,9 @@ import { saveAs } from 'file-saver';
 import { format } from 'date-fns';
 import { Button } from 'semantic-ui-react';
 
-import { useAppSelector } from '../../redux/hooks';
-import { User, UserActivity } from '../../redux/reducers/usersReducer';
+import { useAppSelector } from 'redux/hooks';
+import { User, weekDays } from 'redux/reducers/usersReducer';
 
-const weekDaysRow = ['שישי', 'שבת', 'ראשון', 'שני', 'שלישי', 'רביעי', 'חמישי'];
 const blobType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
 
 const CreateExcelFile = () => {
@@ -15,12 +14,19 @@ const CreateExcelFile = () => {
     const onClick = async () => {
         const workbook = new Workbook();
         const sheet = workbook.addWorksheet('משתמשים');
-        sheet.addRow(weekDaysRow)
+        sheet.addRow(weekDays)
         users.forEach((user: User) => {
-            let row: string[] = [];
-            user.activities.forEach((activity: UserActivity) => {
-                const dayIndex = weekDaysRow.findIndex(elem => activity.day === elem) + 1;
-                row[dayIndex] = `${user.name} - ${activity.type}`
+            // let row: string[] = [];
+            // user.activities.forEach((activity: UserActivity) => {
+            //     const dayIndex = weekDays.findIndex(elem => activity.day === elem) + 1;
+            //     row[dayIndex] = `${user.name} - ${activity.type}`
+            // })
+            const row = weekDays.map(day => {
+                const activity = user.activities.find(userAct => userAct.day === day);
+                if (activity) return `${user.name} - ${activity.type}`
+                else {
+                    if (day !== 'חמישי') return `${user.name} - מנוחה`
+                }
             })
             sheet.addRow(row);
         })

@@ -1,5 +1,15 @@
 import { createSlice, PayloadAction, Slice } from "@reduxjs/toolkit";
 
+export const weekDays = [
+  "שישי",
+  "שבת",
+  "ראשון",
+  "שני",
+  "שלישי",
+  "רביעי",
+  "חמישי",
+];
+
 export interface UserActivity {
   type: string;
   day: string;
