@@ -21,7 +21,13 @@ const CreateExcelFile = () => {
         cookies.users.forEach((user: User) => {
             const row = weekDays.map(day => {
                 const activity = user.activities.find(userAct => userAct.day === day);
-                if (activity) return `${user.name} - ${activity.type}`
+                if (activity) {
+                    if (day === 'חמישי' && activity.type.indexOf('שקיל') !== -1) {
+                        return ''
+                    } else {
+                        return `${user.name} - ${activity.type}`
+                    }
+                }
                 else {
                     if (day !== 'חמישי') return `${user.name} - מנוחה`
                 }
