@@ -1,14 +1,14 @@
 import { useState, ChangeEvent, MouseEvent } from 'react';
-import { Form, TextAreaProps } from 'semantic-ui-react';
+import { Form, Label, TextAreaProps, Icon } from 'semantic-ui-react';
+import { useCookies } from 'react-cookie';
 
-import { useAppDispatch } from 'redux/hooks';
-import { addUser } from 'redux/reducers/usersReducer';
 import { parseActivities } from './parser';
 
 const AddUser = () => {
-    const dispatch = useAppDispatch();
+    const [cookies, setCookie] = useCookies(['users'])
     const [currActivities, setCurrActivities] = useState<string>('');
     const [currName, setCurrName] = useState<string>('');
+
     const onNameChange = (_: ChangeEvent<HTMLTextAreaElement>, data: TextAreaProps) =>
         data.value && setCurrName(data.value.toString());
 
@@ -17,9 +17,8 @@ const AddUser = () => {
 
     const onClick = (event: MouseEvent) => {
         event.preventDefault();
-        dispatch(addUser({
-            name: currName, activities: parseActivities(currActivities)
-        }))
+        const currentUsers = [...cookies.users, { name: currName, activities: parseActivities(currActivities) }]
+        setCookie('users', JSON.stringify(currentUsers))
         setCurrName('');
         setCurrActivities('');
     }
@@ -32,9 +31,14 @@ const AddUser = () => {
             <Form.TextArea label='הוסף פעילויות שבועיות'
                 onChange={event => onActivitiesChange(event)}
                 style={{ minHeight: 250 }} value={currActivities} />
-            <Form.Button color='green'
-                onClick={event => onClick(event)}>הוסף משתמש</Form.Button>
-        </Form>
+            {/* <Form.Group widths='equal'>
+                <Form.Field>
+                    <Icon name='check circle' color='green' size='big' />
+                    <Label>{`המשתמש ${currName} נוסף בהצלחה`}</Label>
+                </Form.Field> */}
+            <Form.Button color='green' onClick={event => onClick(event)}>הוסף משתמש</Form.Button>
+            {/* </Form.Group> */}
+        </Form >
     )
 }
 

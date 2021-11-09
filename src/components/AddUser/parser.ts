@@ -1,9 +1,8 @@
-import { UserActivity, weekDays } from 'redux/reducers/usersReducer';
+import { UserActivity, weekDays } from 'consts';
 
 const removeEverythingBeforeFriday = (input: string): string => {
   const indexOfFirstFriday = input.replace('יום ו', 'יום שישי').indexOf('שישי');
-  if (indexOfFirstFriday === -1) return input;
-  return input.substr(indexOfFirstFriday);
+  return indexOfFirstFriday === -1 ? input : input.substr(indexOfFirstFriday);
 };
 
 const lettersDaysToFullDays = (input: string): string =>
@@ -26,8 +25,8 @@ const removeTheLetterYom = (input: string): string => {
   return input;
 };
 
-const splitToDays = (input: string): string[] => {
-  return weekDays
+const splitToDays = (input: string): string[] =>
+  weekDays
     .map((day, index) => {
       if (input.indexOf(day) === -1) return '';
       if (day === 'חמישי') {
@@ -44,10 +43,8 @@ const splitToDays = (input: string): string[] => {
         .replace(/^\n|\n$/g, '');
     })
     .filter(elem => elem !== '');
-};
 
 const convertToActivityAndDay = (input: string): UserActivity => {
-  console.log('input :>> ', input);
   let splitted: string[] = [];
   if (input.indexOf('-') !== -1) splitted = input.split('-');
   else if (input.indexOf(':') !== -1) splitted = input.split(':');

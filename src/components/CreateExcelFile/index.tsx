@@ -1,21 +1,24 @@
+import { useState } from 'react';
+
 import { Workbook } from 'exceljs';
+import { useCookies } from 'react-cookie';
 import { saveAs } from 'file-saver';
 import { format } from 'date-fns';
-import { Button } from 'semantic-ui-react';
+import { Button, Confirm } from 'semantic-ui-react';
 
-import { useAppSelector } from 'redux/hooks';
-import { User, weekDays } from 'redux/reducers/usersReducer';
+import { User, weekDays } from 'consts';
 
 const blobType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
 
 const CreateExcelFile = () => {
-    const { users } = useAppSelector(state => state.usersReducer);
+    const [isConfirmOpen, setIsConfirmOpen] = useState(false);
+    const [cookies, setCookie] = useCookies(['users']);
 
-    const onClick = () => {
+    const onExcelFileCreation = () => {
         const workbook = new Workbook();
         const sheet = workbook.addWorksheet('משתמשים');
         sheet.addRow(weekDays)
-        users.forEach((user: User) => {
+        cookies.users.forEach((user: User) => {
             const row = weekDays.map(day => {
                 const activity = user.activities.find(userAct => userAct.day === day);
                 if (activity) return `${user.name} - ${activity.type}`
@@ -39,7 +42,18 @@ const CreateExcelFile = () => {
         });
     }
 
-    return <Button color='blue' {...{ onClick }}>צור קובץ אקסל חדש</Button>
+    const onUsersDeletionConfirm = () => {
+        setCookie('users', JSON.stringify([]))
+        setIsConfirmOpen(false);
+    };
+
+    return <Button.Group widths='10'>
+        <Button color='red' onClick={() => setIsConfirmOpen(true)}>אפס טבלת משתמשים</Button>
+        <Button color='blue' onClick={onExcelFileCreation}>צור קובץ אקסל חדש</Button>
+        <Confirm open={isConfirmOpen} onCancel={() => setIsConfirmOpen(false)}
+            onConfirm={onUsersDeletionConfirm} cancelButton='סגור' confirmButton='מחק'
+            content='?האם ברצונך למחוק את טבלת המשתמשים' />
+    </Button.Group>
 }
 
 export default CreateExcelFile;
