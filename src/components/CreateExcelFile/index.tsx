@@ -11,16 +11,11 @@ const blobType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sh
 const CreateExcelFile = () => {
     const { users } = useAppSelector(state => state.usersReducer);
 
-    const onClick = async () => {
+    const onClick = () => {
         const workbook = new Workbook();
         const sheet = workbook.addWorksheet('משתמשים');
         sheet.addRow(weekDays)
         users.forEach((user: User) => {
-            // let row: string[] = [];
-            // user.activities.forEach((activity: UserActivity) => {
-            //     const dayIndex = weekDays.findIndex(elem => activity.day === elem) + 1;
-            //     row[dayIndex] = `${user.name} - ${activity.type}`
-            // })
             const row = weekDays.map(day => {
                 const activity = user.activities.find(userAct => userAct.day === day);
                 if (activity) return `${user.name} - ${activity.type}`
@@ -44,7 +39,7 @@ const CreateExcelFile = () => {
         });
     }
 
-    return <Button color='blue' {...{ onClick }}>צור קובץ אקסל</Button>
+    return <Button color='blue' {...{ onClick }}>צור קובץ אקסל חדש</Button>
 }
 
 export default CreateExcelFile;

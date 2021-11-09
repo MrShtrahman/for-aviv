@@ -1,5 +1,5 @@
 import { useState, ChangeEvent, MouseEvent } from 'react';
-import { Form, InputOnChangeData, TextAreaProps } from 'semantic-ui-react';
+import { Form, TextAreaProps } from 'semantic-ui-react';
 
 import { useAppDispatch } from 'redux/hooks';
 import { addUser } from 'redux/reducers/usersReducer';
@@ -33,7 +33,7 @@ const AddUser = () => {
                 onChange={event => onActivitiesChange(event)}
                 style={{ minHeight: 250 }} value={currActivities} />
             <Form.Button color='green'
-                onClick={event => onClick(event)}>הוסף</Form.Button>
+                onClick={event => onClick(event)}>הוסף משתמש</Form.Button>
         </Form>
     )
 }
