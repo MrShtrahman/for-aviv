@@ -1,36 +1,33 @@
 import { useState } from 'react';
 
 import { Workbook } from 'exceljs';
-import { useCookies } from 'react-cookie';
 import { saveAs } from 'file-saver';
 import { format } from 'date-fns';
 import { Button, Confirm } from 'semantic-ui-react';
 
-import { User, weekDays } from 'consts';
+import { User, weekDays, deleteUsers } from 'redux/reducers/usersReducer';
+import { useAppSelector, useAppDispatch } from 'redux/hooks';
 
 const blobType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
 
 const CreateExcelFile = () => {
+    const dispatch = useAppDispatch();
+    const { users } = useAppSelector(state => state.usersReducer);
     const [isConfirmOpen, setIsConfirmOpen] = useState(false);
-    const [cookies, setCookie] = useCookies(['users']);
 
     const onExcelFileCreation = () => {
+        console.log('users :>> ', users);
         const workbook = new Workbook();
         const sheet = workbook.addWorksheet('משתמשים');
         sheet.addRow(weekDays)
-        cookies.users.forEach((user: User) => {
+        users.forEach((user: User) => {
             const row = weekDays.map(day => {
                 const activity = user.activities.find(userAct => userAct.day === day);
                 if (activity) {
-                    if (day === 'חמישי' && activity.type.indexOf('שקיל') !== -1) {
-                        return ''
-                    } else {
-                        return `${user.name} - ${activity.type}`
-                    }
+                    return (day === 'חמישי' && activity.type.indexOf('שקיל') !== -1) ?
+                        '' : `${user.name} - ${activity.type}`
                 }
-                else {
-                    if (day !== 'חמישי') return `${user.name} - מנוחה`
-                }
+                return (day !== 'חמישי') ? `${user.name} - מנוחה` : ''
             })
             sheet.addRow(row);
         })
@@ -49,7 +46,7 @@ const CreateExcelFile = () => {
     }
 
     const onUsersDeletionConfirm = () => {
-        setCookie('users', JSON.stringify([]))
+        dispatch(deleteUsers(''))
         setIsConfirmOpen(false);
     };
 

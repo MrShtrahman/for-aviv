@@ -1,11 +1,12 @@
 import { useState, ChangeEvent, MouseEvent } from 'react';
-import { Form, Label, TextAreaProps, Icon } from 'semantic-ui-react';
-import { useCookies } from 'react-cookie';
+import { Form, TextAreaProps } from 'semantic-ui-react';
 
+import { useAppDispatch } from 'redux/hooks';
+import { addUser } from 'redux/reducers/usersReducer';
 import { parseActivities } from './parser';
 
 const AddUser = () => {
-    const [cookies, setCookie] = useCookies(['users'])
+    const dispatch = useAppDispatch();
     const [currActivities, setCurrActivities] = useState<string>('');
     const [currName, setCurrName] = useState<string>('');
 
@@ -17,8 +18,9 @@ const AddUser = () => {
 
     const onClick = (event: MouseEvent) => {
         event.preventDefault();
-        const currentUsers = [...cookies.users, { name: currName, activities: parseActivities(currActivities) }]
-        setCookie('users', JSON.stringify(currentUsers))
+        dispatch(addUser({
+            name: currName, activities: parseActivities(currActivities)
+        }))
         setCurrName('');
         setCurrActivities('');
     }

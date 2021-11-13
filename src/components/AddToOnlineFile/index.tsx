@@ -2,7 +2,7 @@ import { Button } from 'semantic-ui-react';
 import { join } from 'path';
 import { useCookies } from 'react-cookie';
 import { Workbook } from 'exceljs';
-import { User, weekDays } from 'consts';
+import { User, weekDays } from 'redux/reducers/usersReducer';
 
 const AddToOnlineFile = () => {
 

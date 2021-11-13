@@ -1,4 +1,4 @@
-import { UserActivity, weekDays } from 'consts';
+import { UserActivity, weekDays } from 'redux/reducers/usersReducer';
 
 const removeEverythingBeforeFriday = (input: string): string => {
   const indexOfFirstFriday = input.replace('יום ו', 'יום שישי').indexOf('שישי');
