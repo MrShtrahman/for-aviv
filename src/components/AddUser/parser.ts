@@ -2,10 +2,12 @@ import { UserActivity, weekDays } from 'redux/reducers/usersReducer';
 
 const removeEverythingBeforeFriday = (input: string): string => {
   const indexOfFirstFriday = input.replace('יום ו', 'יום שישי').indexOf('שישי');
-  return indexOfFirstFriday === -1 ? input : input.substr(indexOfFirstFriday);
+  return indexOfFirstFriday === -1
+    ? input
+    : input.substring(indexOfFirstFriday);
 };
 
-const lettersDaysToFullDays = (input: string): string =>
+export const lettersDaysToFullDays = (input: string): string =>
   input
     .replace(`מוצ"ש`, 'שבת')
     .replace(`מוצש`, 'שבת')
@@ -17,7 +19,7 @@ const lettersDaysToFullDays = (input: string): string =>
     .replace('יום ו', 'יום שישי')
     .replace(/$יום ש^/, 'יום שבת');
 
-const removeTheLetterYom = (input: string): string => {
+export const removeTheLetterYom = (input: string): string => {
   weekDays.forEach(day => {
     input = input.replace(`יום ${day}`, day);
   });
@@ -25,13 +27,13 @@ const removeTheLetterYom = (input: string): string => {
   return input;
 };
 
-const splitToDays = (input: string): string[] =>
+export const splitToDays = (input: string): string[] =>
   weekDays
     .map((day, index) => {
       if (input.indexOf(day) === -1) return '';
       if (day === 'חמישי') {
         const indexOfThursday = input.indexOf(day);
-        return input.substr(indexOfThursday);
+        return input.substring(indexOfThursday);
       }
       const indexOfDay = input.indexOf(day);
       const indexOfNextDay = input.indexOf(weekDays[index + 1]);
@@ -39,7 +41,7 @@ const splitToDays = (input: string): string[] =>
         indexOfNextDay !== -1 ? indexOfNextDay : input.length;
 
       return input
-        .substr(indexOfDay, indexToDeleteUntil - indexOfDay)
+        .substring(indexOfDay, indexToDeleteUntil - indexOfDay)
         .replace(/^\n|\n$/g, '');
     })
     .filter(elem => elem !== '');
@@ -53,8 +55,8 @@ const convertToActivityAndDay = (input: string): UserActivity => {
   else {
     const indexOfWhitespace = input.indexOf(' ');
     splitted = [
-      input.substr(0, indexOfWhitespace),
-      input.substr(indexOfWhitespace)
+      input.substring(0, indexOfWhitespace),
+      input.substring(indexOfWhitespace)
     ];
   }
 
