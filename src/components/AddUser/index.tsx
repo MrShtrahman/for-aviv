@@ -1,5 +1,5 @@
 import { useState, ChangeEvent, MouseEvent } from 'react';
-import { Form, TextAreaProps } from 'semantic-ui-react';
+import { Form, TextAreaProps, Icon } from 'semantic-ui-react';
 
 import { useAppDispatch } from 'redux/hooks';
 import { addUser } from 'redux/reducers/usersReducer';
@@ -36,20 +36,14 @@ const AddUser = () => {
         <Form>
             <Form.TextArea fluid label='הוסף שם'
                 onChange={(event, data) => onNameChange(event, data)}
-                style={{ height: 45 }} value={currName} />
+                style={{ height: 45 }} value={currName} required />
             <Form.TextArea label='הוסף פעילויות שבועיות'
                 onChange={event => onActivitiesChange(event)}
                 style={{ minHeight: 250 }} value={currActivities} />
             <Form.TextArea label='הוסף פעילויות שבועיות - פורמט מיוחד'
                 onChange={event => onSpecialActivitiesChange(event)}
                 style={{ minHeight: 100 }} value={currSpecialActivities} />
-            {/* <Form.Group widths='equal'>
-                <Form.Field>
-                    <Icon name='check circle' color='green' size='big' />
-                    <Label>{`המשתמש ${currName} נוסף בהצלחה`}</Label>
-                </Form.Field> */}
-            <Form.Button color='green' onClick={event => onClick(event)}>הוסף משתמש</Form.Button>
-            {/* </Form.Group> */}
+            <Form.Button color='green' onClick={event => onClick(event)} icon labelPosition='left'><Icon name='users' />הוסף משתמש</Form.Button>
         </Form >
     )
 }

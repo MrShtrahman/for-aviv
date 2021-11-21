@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Workbook } from 'exceljs';
 import { saveAs } from 'file-saver';
 import { format } from 'date-fns';
-import { Button, Confirm } from 'semantic-ui-react';
+import { Button, Confirm, Icon } from 'semantic-ui-react';
 
 import { User, weekDays, deleteUsers } from 'redux/reducers/usersReducer';
 import { useAppSelector, useAppDispatch } from 'redux/hooks';
@@ -51,8 +51,8 @@ const CreateExcelFile = () => {
     };
 
     return <Button.Group widths='10'>
-        <Button color='red' onClick={() => setIsConfirmOpen(true)}>אפס טבלת משתמשים</Button>
-        <Button color='blue' onClick={onExcelFileCreation}>צור קובץ אקסל חדש</Button>
+        <Button color='red' onClick={() => setIsConfirmOpen(true)} icon labelPosition='left'><Icon name='delete' />אפס טבלה</Button>
+        <Button color='facebook' onClick={onExcelFileCreation} icon labelPosition='left'><Icon name='file' />צור קובץ אקסל חדש</Button>
         <Confirm open={isConfirmOpen} onCancel={() => setIsConfirmOpen(false)}
             onConfirm={onUsersDeletionConfirm} cancelButton='סגור' confirmButton='מחק'
             content='?האם ברצונך למחוק את טבלת המשתמשים' />
