@@ -25,6 +25,22 @@ export const removeTheLetterYom = (input: string): string => {
   return input;
 };
 
+const fillInMissingDays = (input: string): string => {
+  weekDays.forEach((day, index) => {
+    if (day !== 'שישי') {
+      const indexOfPreviousDay = input.indexOf(weekDays[index - 1]);
+      if (indexOfPreviousDay === -1) {
+        const indexOfPreviousDay = input.indexOf(weekDays[index]);
+        input = `${input.slice(0, indexOfPreviousDay)}${
+          weekDays[index - 1]
+        }\n${input.slice(indexOfPreviousDay)}`;
+      }
+    }
+  });
+
+  return input;
+};
+
 export const splitToDays = (input: string): string[] =>
   weekDays
     .map((day, index) => {
@@ -34,7 +50,7 @@ export const splitToDays = (input: string): string[] =>
         return input.substr(indexOfThursday);
       }
       const indexOfDay = input.indexOf(day);
-      const indexOfNextDay = input.indexOf(weekDays[index + 1]);
+      const indexOfNextDay = input.lastIndexOf(weekDays[index + 1]);
       const indexToDeleteUntil =
         indexOfNextDay !== -1 ? indexOfNextDay : input.length;
 
@@ -67,8 +83,14 @@ const convertToActivityAndDay = (input: string): UserActivity => {
 
 export const parseActivities = (input: string): UserActivity[] => {
   const nothingBeforeFriday = removeEverythingBeforeFriday(input);
+  // console.log('nothingBeforeFriday :>> ', nothingBeforeFriday);
   const withoutDaysLetters = lettersDaysToFullDays(nothingBeforeFriday);
+  // console.log('withoutDaysLetters :>> ', withoutDaysLetters);
   const withoutTheLetterYom = removeTheLetterYom(withoutDaysLetters);
-  const seperatedByDays = splitToDays(withoutTheLetterYom);
+  // console.log('withoutTheLetterYom :>> ', withoutTheLetterYom);
+  const withFilledInDays = fillInMissingDays(withoutTheLetterYom);
+  // console.log('withFilledInDays :>> ', withFilledInDays);
+  const seperatedByDays = splitToDays(withFilledInDays);
+  // console.log('seperatedByDays :>> ', seperatedByDays);
   return seperatedByDays.map(elem => convertToActivityAndDay(elem));
 };

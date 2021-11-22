@@ -16,13 +16,12 @@ const CreateExcelFile = () => {
     const [isConfirmOpen, setIsConfirmOpen] = useState(false);
 
     const onExcelFileCreation = () => {
-        console.log('users :>> ', users);
         const workbook = new Workbook();
         const sheet = workbook.addWorksheet('משתמשים');
         sheet.addRow(weekDays)
         users.forEach((user: User) => {
             const row = weekDays.map(day => {
-                const activity = user.activities.find(userAct => userAct.day === day);
+                const activity = user.activities.find(userAct => userAct.day.replace(' ', '') === day);
                 if (activity) {
                     return (day === 'חמישי' && activity.type.indexOf('שקיל') !== -1) ?
                         '' : `${user.name} - ${activity.type}`
