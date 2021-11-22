@@ -9,9 +9,6 @@ const App = () => (
     <div className={styles.App}>
       <AddUser />
       <br />
-      {/* <ChooseOnlineFile />
-      {'         '}
-      <AddToOnlineFile /> */}
       <br />
       <CreateExcelFile />
     </div>

@@ -1,4 +1,4 @@
-import { useState, ChangeEvent, MouseEvent } from 'react';
+import { useState, ChangeEvent } from 'react';
 import { Form, TextAreaProps, Icon } from 'semantic-ui-react';
 
 import { useAppDispatch } from 'redux/hooks';
@@ -21,8 +21,7 @@ const AddUser = () => {
     const onSpecialActivitiesChange = (event: ChangeEvent<HTMLTextAreaElement>) =>
         setCurrSpecialActivities(event.target.value);
 
-    const onClick = (event: MouseEvent) => {
-        event.preventDefault();
+    const dispatchUser = () => {
         const normalActivities = currActivities !== ''
         dispatch(addUser({
             name: currName, activities: normalActivities ? parseActivities(currActivities) : parseSpecialActivities(currSpecialActivities)
@@ -36,14 +35,17 @@ const AddUser = () => {
         <Form>
             <Form.TextArea fluid label='הוסף שם'
                 onChange={(event, data) => onNameChange(event, data)}
-                style={{ height: 45 }} value={currName} required />
+                style={{ height: 45 }} value={currName} />
             <Form.TextArea label='הוסף פעילויות שבועיות'
                 onChange={event => onActivitiesChange(event)}
                 style={{ minHeight: 250 }} value={currActivities} />
             <Form.TextArea label='הוסף פעילויות שבועיות - פורמט מיוחד'
                 onChange={event => onSpecialActivitiesChange(event)}
                 style={{ minHeight: 100 }} value={currSpecialActivities} />
-            <Form.Button color='green' onClick={event => onClick(event)} icon labelPosition='left'><Icon name='users' />הוסף משתמש</Form.Button>
+            <Form.Button fluid
+                color='green' onClick={dispatchUser} icon labelPosition='left'>
+                <Icon name='users' />הוסף משתמש
+            </Form.Button>
         </Form >
     )
 }

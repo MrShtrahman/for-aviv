@@ -22,4 +22,5 @@ code {
 
 textarea {
   text-align: right;
+  direction: rtl;
 }
