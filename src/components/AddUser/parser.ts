@@ -27,13 +27,18 @@ export const removeTheLetterYom = (input: string): string => {
 
 const fillInMissingDays = (input: string): string => {
   weekDays.forEach((day, index) => {
+    console.log('day :>> ', day);
     if (day !== 'שישי') {
       const indexOfPreviousDay = input.indexOf(weekDays[index - 1]);
       if (indexOfPreviousDay === -1) {
-        const indexOfPreviousDay = input.indexOf(weekDays[index]);
-        input = `${input.slice(0, indexOfPreviousDay)}${
-          weekDays[index - 1]
-        }\n${input.slice(indexOfPreviousDay)}`;
+        const indexOfCurrentDay = input.indexOf(weekDays[index]);
+        if (indexOfCurrentDay === -1) {
+          input += `\n${weekDays[index - 1]}`;
+        } else {
+          input = `${input.slice(0, indexOfCurrentDay)}${
+            weekDays[index - 1]
+          }\n${input.slice(indexOfCurrentDay)}`;
+        }
       }
     }
   });
@@ -42,23 +47,7 @@ const fillInMissingDays = (input: string): string => {
 };
 
 export const splitToDays = (input: string): string[] =>
-  weekDays
-    .map((day, index) => {
-      if (input.indexOf(day) === -1) return '';
-      if (day === 'חמישי') {
-        const indexOfThursday = input.indexOf(day);
-        return input.substr(indexOfThursday);
-      }
-      const indexOfDay = input.indexOf(day);
-      const indexOfNextDay = input.lastIndexOf(weekDays[index + 1]);
-      const indexToDeleteUntil =
-        indexOfNextDay !== -1 ? indexOfNextDay : input.length;
-
-      return input
-        .substr(indexOfDay, indexToDeleteUntil - indexOfDay)
-        .replace(/^\n|\n$/g, '');
-    })
-    .filter(elem => elem !== '');
+  input.split('\n').filter(elem => elem !== '' && elem !== ' ');
 
 const convertToActivityAndDay = (input: string): UserActivity => {
   let splitted: string[] = [];
