@@ -13,6 +13,6 @@ const App = () => (
       <CreateExcelFile />
     </div>
   </div>
-)
+);
 
 export default App;

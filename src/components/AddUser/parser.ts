@@ -35,9 +35,7 @@ const fillInMissingDays = (input: string): string => {
         if (indexOfCurrentDay === -1) {
           input += `\n${weekDays[index - 1]}`;
         } else {
-          input = `${input.slice(0, indexOfCurrentDay)}${
-            weekDays[index - 1]
-          }\n${input.slice(indexOfCurrentDay)}`;
+          input = `${input.slice(0, indexOfCurrentDay)}${weekDays[index - 1]}\n${input.slice(indexOfCurrentDay)}`;
         }
       }
     }
@@ -46,8 +44,7 @@ const fillInMissingDays = (input: string): string => {
   return input;
 };
 
-export const splitToDays = (input: string): string[] =>
-  input.split('\n').filter(elem => elem !== '' && elem !== ' ');
+export const splitToDays = (input: string): string[] => input.split('\n').filter(elem => elem !== '' && elem !== ' ');
 
 const convertToActivityAndDay = (input: string): UserActivity => {
   let splitted: string[] = [];
@@ -57,10 +54,7 @@ const convertToActivityAndDay = (input: string): UserActivity => {
   // We just take everything past the day itself
   else {
     const indexOfWhitespace = input.indexOf(' ');
-    splitted = [
-      input.substr(0, indexOfWhitespace),
-      input.substr(indexOfWhitespace)
-    ];
+    splitted = [input.substr(0, indexOfWhitespace), input.substr(indexOfWhitespace)];
   }
 
   if (splitted[1] === '' || splitted[1] === ' ') splitted[1] = 'מנוחה';
