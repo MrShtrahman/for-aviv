@@ -1,0 +1,27 @@
+{
+  "parser": "@typescript-eslint/parser",
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
+  "env": {
+    "node": true,
+    "es6": true,
+    "browser": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:react/jsx-runtime",
+    "plugin:css-modules/recommended"
+  ],
+  "plugins": ["@typescript-eslint/eslint-plugin", "react", "css-modules"],
+  "parserOptions": {
+    "ecmaVersion": 2021,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  }
+}

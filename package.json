@@ -5,7 +5,8 @@
     "start": "node src/openWindow.js && vite",
     "build": "tsc && vite build",
     "serve": "vite preview",
-    "format": "prettier src/**/* --write"
+    "format": "prettier src/**/* --write",
+    "lint": "eslint src/**/*.ts{,x} --fix"
   },
   "type": "module",
   "dependencies": {
@@ -24,10 +25,14 @@
     "@types/react": "^17.0.37",
     "@types/react-dom": "^17.0.11",
     "@types/react-redux": "^7.1.20",
+    "@typescript-eslint/eslint-plugin": "^5.4.0",
+    "@typescript-eslint/parser": "^5.4.0",
     "@vitejs/plugin-react": "^1.1.0",
     "eslint": "^8.3.0",
     "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-css-modules": "^2.11.0",
     "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-react": "^7.27.1",
     "open": "^8.4.0",
     "prettier": "^2.5.0",
     "ts-node": "^10.4.0",
