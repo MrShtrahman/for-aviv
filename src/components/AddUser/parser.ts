@@ -27,16 +27,14 @@ export const removeTheLetterYom = (input: string): string => {
 
 const fillInMissingDays = (input: string): string => {
   weekDays.forEach((day, index) => {
-    if (day !== 'שישי') {
-      const indexOfPreviousDay = input.indexOf(weekDays[index - 1]);
-      if (indexOfPreviousDay === -1) {
-        const indexOfCurrentDay = input.indexOf(weekDays[index]);
-        if (indexOfCurrentDay === -1) {
-          input += `\n${weekDays[index - 1]}`;
-        } else {
-          input = `${input.slice(0, indexOfCurrentDay)}${weekDays[index - 1]}\n${input.slice(indexOfCurrentDay)}`;
-        }
-      }
+    if (day === 'שישי') return;
+    const indexOfPreviousDay = input.indexOf(weekDays[index - 1]);
+    if (indexOfPreviousDay !== -1) return;
+    const indexOfCurrentDay = input.indexOf(weekDays[index]);
+    if (indexOfCurrentDay === -1) {
+      input += `\n${weekDays[index - 1]}`;
+    } else {
+      input = `${input.slice(0, indexOfCurrentDay)}${weekDays[index - 1]}\n${input.slice(indexOfCurrentDay)}`;
     }
   });
 
