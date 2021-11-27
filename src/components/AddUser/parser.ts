@@ -27,7 +27,6 @@ export const removeTheLetterYom = (input: string): string => {
 
 const fillInMissingDays = (input: string): string => {
   weekDays.forEach((day, index) => {
-    console.log('day :>> ', day);
     if (day !== 'שישי') {
       const indexOfPreviousDay = input.indexOf(weekDays[index - 1]);
       if (indexOfPreviousDay === -1) {
