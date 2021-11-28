@@ -1,6 +1,6 @@
 import { UserActivity, weekDays } from 'redux/reducers/usersReducer';
 
-const removeEverythingBeforeFriday = (input: string): string => {
+export const removeEverythingBeforeFriday = (input: string): string => {
   const indexOfFirstFriday = input.replace('יום ו', 'יום שישי').indexOf('שישי');
   return indexOfFirstFriday === -1 ? input : input.substr(indexOfFirstFriday);
 };
@@ -25,7 +25,7 @@ export const removeTheLetterYom = (input: string): string => {
   return input;
 };
 
-const fillInMissingDays = (input: string): string => {
+export const fillInMissingDays = (input: string): string => {
   weekDays.forEach((day, index) => {
     if (day === 'שישי') return;
     const indexOfPreviousDay = input.indexOf(weekDays[index - 1]);
@@ -43,7 +43,7 @@ const fillInMissingDays = (input: string): string => {
 
 export const splitToDays = (input: string): string[] => input.split('\n').filter(elem => elem !== '' && elem !== ' ');
 
-const convertToActivityAndDay = (input: string): UserActivity => {
+export const convertToActivityAndDay = (input: string): UserActivity => {
   let splitted: string[] = [];
   if (input.indexOf('-') !== -1) splitted = input.split('-');
   else if (input.indexOf(':') !== -1) splitted = input.split(':');
