@@ -13,12 +13,12 @@ export interface User {
 }
 
 // Define a type for the slice state
-interface UsersState {
+export interface UsersState {
   users: User[];
 }
 
 // Define the initial state using that type
-const initialState: UsersState = {
+export const initialState: UsersState = {
   users: []
 };
 
