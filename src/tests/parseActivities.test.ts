@@ -62,17 +62,17 @@ describe('scenarios - 27/11/2021', () => {
 ראשון - כוח + חצי שעה אירובי 
 שני - שעה אירובי`;
 
-const result: UserActivity[] = [
-    { day: 'תוכניתאימונים', type: 'מנוחה' },
-    { day: '', type: 'י' },
-    { day: 'חמישי', type: ' כוח + חצי שעה אירובי ' },
-    { day: '', type: 'י' },
-    { day: 'שבת', type: ' שעה אירובי' },
-    { day: 'ראשון', type: ' כוח + חצי שעה אירובי ' },
-    { day: 'שני', type: ' שעה אירובי' },
-    { day: '', type: 'י' },
-  ];
+    const result: UserActivity[] = [
+      { day: 'תוכניתאימונים', type: 'מנוחה' },
+      { day: '', type: 'י' },
+      { day: 'חמישי', type: ' כוח + חצי שעה אירובי ' },
+      { day: '', type: 'י' },
+      { day: 'שבת', type: ' שעה אירובי' },
+      { day: 'ראשון', type: ' כוח + חצי שעה אירובי ' },
+      { day: 'שני', type: ' שעה אירובי' },
+      { day: '', type: 'י' }
+    ];
 
-  expect(parseActivities(input)).toStrictEqual(result);
-  })
+    expect(parseActivities(input)).toStrictEqual(result);
+  });
 });

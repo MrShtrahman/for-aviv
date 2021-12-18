@@ -6,22 +6,29 @@ describe('usersReducer', () => {
       name: 'Matan',
       activities: [{ day: 'שישי', type: 'מנוחה' }]
     };
-    expect(reducer(initialState, addUser(user))).toEqual({users: [
-      {
-        name: 'Matan',
-        activities: [{ day: 'שישי', type: 'מנוחה' }]
-      }
-    ]});
+    expect(reducer(initialState, addUser(user))).toEqual({
+      users: [
+        {
+          name: 'Matan',
+          activities: [{ day: 'שישי', type: 'מנוחה' }]
+        }
+      ]
+    });
   });
 
   test('shoud handle deleting all users', () => {
-      const modifiedInitialState: UsersState = {users: [{
-        name: 'Matan',
-        activities: [{ day: 'שישי', type: 'מנוחה' }]
-      },{
-        name: 'Noam',
-        activities: [{ day: 'ראשון', type: 'מנוחה' }]
-      }]};
-      expect(reducer(modifiedInitialState, deleteUsers(modifiedInitialState))).toStrictEqual({users: []})
-  })
+    const modifiedInitialState: UsersState = {
+      users: [
+        {
+          name: 'Matan',
+          activities: [{ day: 'שישי', type: 'מנוחה' }]
+        },
+        {
+          name: 'Noam',
+          activities: [{ day: 'ראשון', type: 'מנוחה' }]
+        }
+      ]
+    };
+    expect(reducer(modifiedInitialState, deleteUsers(modifiedInitialState))).toStrictEqual({ users: [] });
+  });
 });
