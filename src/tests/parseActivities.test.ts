@@ -1,4 +1,4 @@
-import { UserActivity } from 'redux/reducers/usersReducer';
+import { UserActivity } from '../redux/reducers/usersReducer';
 import { parseActivities } from '../components/AddUser/parser';
 
 describe('scenarios - 27/11/2021', () => {

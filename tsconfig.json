@@ -1,6 +1,8 @@
 {
   "compilerOptions": {
-    "types": ["vite/client", "jest"],
+    "types": ["vite/client",
+      "jest",
+      "@types/react"],
     "target": "es2021",
     "useDefineForClassFields": true,
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
