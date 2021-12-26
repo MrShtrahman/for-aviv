@@ -1,12 +1,12 @@
 name: Build and Test React Application
 
-# Controls when the action will run. 
+# Controls when the action will run.
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -29,4 +29,17 @@ jobs:
       - name: npm ci, build and test
         run: |
           npm ci
-          npm test
+      - name: 'coverage'
+        on:
+          pull_request:
+            branches:
+              - main
+        jobs:
+          coverage:
+            runs-on: ubuntu-latest
+            steps:
+              - uses: actions/checkout@v1
+              - uses: ArtiomTr/jest-coverage-report-action@v2.0-rc.6
+                with:
+                  github-token: ${{ secrets.GITHUB_TOKEN }}
+                  #   threshold: 80 # optional parameter
