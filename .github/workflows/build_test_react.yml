@@ -30,16 +30,8 @@ jobs:
         run: |
           npm ci
       - name: 'coverage'
-        on:
-          pull_request:
-            branches:
-              - main
-        jobs:
-          coverage:
-            runs-on: ubuntu-latest
-            steps:
-              - uses: actions/checkout@v1
-              - uses: ArtiomTr/jest-coverage-report-action@v2.0-rc.6
-                with:
-                  github-token: ${{ secrets.GITHUB_TOKEN }}
+      - uses: actions/checkout@v1
+      - uses: ArtiomTr/jest-coverage-report-action@v2.0-rc.6
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
                   #   threshold: 80 # optional parameter
