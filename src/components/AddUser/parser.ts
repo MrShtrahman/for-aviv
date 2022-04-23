@@ -1,9 +1,11 @@
 import { UserActivity, weekDays } from 'redux/reducers/usersReducer';
 
+const hebrewRegex = new RegExp(/[\u0590-\u05FF]/);
+
 export const removeEverythingBeforeHebrew = (input: string): string => {
-  const hebrewRegex = new RegExp('^[\u0590-\u05FF]+$');
-  const firstHebrewOccurence = input.search(hebrewRegex);
-  return input.substring(firstHebrewOccurence);
+  const firstHebrewOccurence = hebrewRegex.exec(input)?.index || 0;
+  const withoutHebrew = input.substring(firstHebrewOccurence);
+  return withoutHebrew;
 };
 
 export const removeEverythingBeforeFriday = (input: string): string => {
@@ -47,7 +49,15 @@ export const fillInMissingDays = (input: string): string => {
   return input;
 };
 
-export const splitToDays = (input: string): string[] => input.split('\n').filter(elem => elem !== '' && elem !== ' ');
+export const splitToDays = (input: string): string[] => {
+  const dunno = input.split('\n');
+
+  console.log('dunno :>> ', dunno);
+
+  const dunno_2 = dunno.map(curr => removeEverythingBeforeHebrew(curr));
+  console.log('dunno_2 :>> ', dunno_2);
+  return dunno_2.filter(elem => elem !== '' && elem !== ' ');
+};
 
 export const convertToActivityAndDay = (input: string): UserActivity => {
   let splitted: string[] = [];
@@ -68,9 +78,7 @@ export const convertToActivityAndDay = (input: string): UserActivity => {
 };
 
 export const parseActivities = (input: string): UserActivity[] => {
-  const withoutNonHebrewAtStart = removeEverythingBeforeHebrew(input);
-  // console.log('withoutNonHebrewAtStart :>> ', withoutNonHebrewAtStart);
-  const nothingBeforeFriday = removeEverythingBeforeFriday(withoutNonHebrewAtStart);
+  const nothingBeforeFriday = removeEverythingBeforeFriday(input);
   // console.log('nothingBeforeFriday :>> ', nothingBeforeFriday);
   const withoutDaysLetters = lettersDaysToFullDays(nothingBeforeFriday);
   // console.log('withoutDaysLetters :>> ', withoutDaysLetters);

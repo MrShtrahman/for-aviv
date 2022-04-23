@@ -2,6 +2,23 @@
 import { UserActivity } from 'redux/reducers/usersReducer';
 import { lettersDaysToFullDays, removeTheLetterYom, removeEverythingBeforeHebrew } from './parser';
 
+const days = [
+  'ראשון',
+  'שני',
+  'שלישי',
+  'רביעי',
+  'חמישי',
+  'שישי',
+  'שבת',
+  'וראשון',
+  'ושני',
+  'ושלישי',
+  'ורביעי',
+  'וחמישי',
+  'ושישי',
+  'ושבת'
+];
+
 const splitToDaysSpecial = (input: string): UserActivity[] => {
   const withoutSpecialCharacters = input
     .replace('-', '')
@@ -10,7 +27,10 @@ const splitToDaysSpecial = (input: string): UserActivity[] => {
     .filter(elem => elem !== ' ')
     .filter(elem => elem !== '');
 
-  const activity = withoutSpecialCharacters.pop();
+  let activity = withoutSpecialCharacters.pop();
+  if (!days.includes(withoutSpecialCharacters[withoutSpecialCharacters.length - 1])) {
+    activity = withoutSpecialCharacters.pop() + ' ' + activity;
+  }
 
   const lastDay = withoutSpecialCharacters[withoutSpecialCharacters.length - 1];
   if (lastDay[0] === 'ו') {
