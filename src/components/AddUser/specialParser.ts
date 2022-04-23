@@ -34,6 +34,7 @@ const splitToDaysSpecial = (input: string): UserActivity[] => {
  * ```
  */
 export const parseSpecialActivities = (input: string): UserActivity[] => {
+  if (input === '') return [];
   let result: UserActivity[] = [];
   input = input.replaceAll(',', ' ');
   const withoutNonHebrewAtStart = removeEverythingBeforeHebrew(input);
