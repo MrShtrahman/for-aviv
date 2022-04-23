@@ -1,5 +1,11 @@
 import { UserActivity, weekDays } from 'redux/reducers/usersReducer';
 
+export const removeEverythingBeforeHebrew = (input: string): string => {
+  const hebrewRegex = new RegExp('^[\u0590-\u05FF]+$');
+  const firstHebrewOccurence = input.search(hebrewRegex);
+  return input.substring(firstHebrewOccurence);
+};
+
 export const removeEverythingBeforeFriday = (input: string): string => {
   const indexOfFirstFriday = input.replace('יום ו', 'יום שישי').indexOf('שישי');
   return indexOfFirstFriday === -1 ? input : input.substr(indexOfFirstFriday);
@@ -62,7 +68,9 @@ export const convertToActivityAndDay = (input: string): UserActivity => {
 };
 
 export const parseActivities = (input: string): UserActivity[] => {
-  const nothingBeforeFriday = removeEverythingBeforeFriday(input);
+  const withoutNonHebrewAtStart = removeEverythingBeforeHebrew(input);
+  // console.log('withoutNonHebrewAtStart :>> ', withoutNonHebrewAtStart);
+  const nothingBeforeFriday = removeEverythingBeforeFriday(withoutNonHebrewAtStart);
   // console.log('nothingBeforeFriday :>> ', nothingBeforeFriday);
   const withoutDaysLetters = lettersDaysToFullDays(nothingBeforeFriday);
   // console.log('withoutDaysLetters :>> ', withoutDaysLetters);

@@ -33,7 +33,7 @@ const CreateExcelFile = () => {
       let maxLength = 0;
       column['eachCell'] &&
         column['eachCell']({ includeEmpty: true }, cell => {
-          const columnLength = cell.value ? cell.value.toString().length : 8;
+          const columnLength = cell.value ? cell.value.toString().length - 3 : 8;
           if (columnLength > maxLength) maxLength = columnLength;
         });
       column.width = maxLength < 8 ? 8 : maxLength;
