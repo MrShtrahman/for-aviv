@@ -2,7 +2,7 @@ pipeline {
     agent { 
         docker { 
             image 'node:18.12.1-alpine'
-            args '-p 2376:2376'
+            args '-p 2376:3000'
         } 
     }
     environment {
