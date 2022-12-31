@@ -6,26 +6,26 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                input message 'Installing dependencies...'
+                input messgae: 'Installing dependencies...'
                 sh 'npm ci'
-                input message 'Installing dependencies complete.'
-                input message 'Building...'
+                input messgae: 'Installing dependencies complete.'
+                input messgae: 'Building...'
                 sh 'npm run build'
-                input message 'Building complete.'
+                input messgae: 'Building complete.'
             }
         }
         stage('Lint') {
             steps {
-                input message 'Linting...'
+                input messgae: 'Linting...'
                 sh 'npm run lint'
-                input message 'Linting complete'
+                input messgae: 'Linting complete'
             }
         }
         stage('Test') {
             steps {
-                input message 'Testing...'
+                input messgae: 'Testing...'
                 sh 'npm run coverage'
-                input message 'Testing complete'
+                input messgae: 'Testing complete'
             }
         }
     }
