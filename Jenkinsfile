@@ -1,5 +1,10 @@
 pipeline {
-    agent { docker { image 'node:18.12.1-alpine' } }
+    agent { 
+        docker { 
+            image 'node:18.12.1-alpine'
+            args '-p 2376:2376'
+        } 
+    }
     environment {
         CI = 'true'
     }
